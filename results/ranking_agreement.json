@@ -1,0 +1,121 @@
+{
+  "online_boutique": {
+    "extracted_vs_truth_dependents": {
+      "n_nodes": 12,
+      "spearman": 1.0,
+      "kendall_tau_b": 1.0,
+      "top5_a": [
+        "cartservice",
+        "currencyservice",
+        "emailservice",
+        "paymentservice",
+        "productcatalogservice",
+        "redis-cart",
+        "shippingservice"
+      ],
+      "top5_b": [
+        "cartservice",
+        "currencyservice",
+        "emailservice",
+        "paymentservice",
+        "productcatalogservice",
+        "redis-cart",
+        "shippingservice"
+      ],
+      "top5_jaccard": 1.0
+    },
+    "composite_vs_impact_truth": {
+      "n_nodes": 12,
+      "spearman": -0.002,
+      "kendall_tau_b": -0.018,
+      "top5_a": [
+        "cartservice",
+        "checkoutservice",
+        "currencyservice",
+        "frontend",
+        "productcatalogservice",
+        "shippingservice"
+      ],
+      "top5_b": [
+        "cartservice",
+        "currencyservice",
+        "emailservice",
+        "paymentservice",
+        "productcatalogservice",
+        "redis-cart",
+        "shippingservice"
+      ],
+      "top5_jaccard": 0.444
+    }
+  },
+  "astronomy_shop": {
+    "extracted_vs_truth_dependents": {
+      "n_nodes": 19,
+      "spearman": 1.0,
+      "kendall_tau_b": 1.0,
+      "top5_a": [
+        "astronomy-db",
+        "flagd",
+        "kafka",
+        "product-catalog",
+        "quote",
+        "valkey-cart"
+      ],
+      "top5_b": [
+        "astronomy-db",
+        "flagd",
+        "kafka",
+        "product-catalog",
+        "quote",
+        "valkey-cart"
+      ],
+      "top5_jaccard": 1.0
+    },
+    "composite_vs_impact_truth": {
+      "n_nodes": 21,
+      "spearman": 0.092,
+      "kendall_tau_b": 0.068,
+      "top5_a": [
+        "checkout",
+        "flagd",
+        "frontend",
+        "frontend-proxy",
+        "product-catalog"
+      ],
+      "top5_b": [
+        "astronomy-db",
+        "flagd",
+        "kafka",
+        "product-catalog",
+        "quote",
+        "valkey-cart"
+      ],
+      "top5_jaccard": 0.222
+    },
+    "soft_edges_removed": 13,
+    "all_hard_vs_code_verified": {
+      "n_nodes": 21,
+      "spearman": 0.665,
+      "kendall_tau_b": 0.651,
+      "top5_a": [
+        "astronomy-db",
+        "flagd",
+        "kafka",
+        "product-catalog",
+        "quote",
+        "valkey-cart"
+      ],
+      "top5_b": [
+        "astronomy-db",
+        "cart",
+        "currency",
+        "payment",
+        "product-catalog",
+        "quote",
+        "shipping",
+        "valkey-cart"
+      ],
+      "top5_jaccard": 0.4
+    }
+  }
+}

@@ -1,0 +1,500 @@
+{
+  "online_boutique": {
+    "v1": {
+      "node_f1": 1.0,
+      "edge_precision": 1.0,
+      "edge_recall": 1.0,
+      "edge_f1": 1.0,
+      "explicit_recall": 0.375,
+      "implied_correct": 10,
+      "implied_total": 10,
+      "n_edges": 16,
+      "missed_edges": [],
+      "invented_edges": [],
+      "rank_spearman_vs_truth": 1.0
+    },
+    "blind_runs": [
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 0.875,
+        "edge_f1": 0.933,
+        "explicit_recall": 0.375,
+        "implied_correct": 8,
+        "implied_total": 8,
+        "n_edges": 14,
+        "missed_edges": [
+          [
+            "checkoutservice",
+            "currencyservice"
+          ],
+          [
+            "checkoutservice",
+            "productcatalogservice"
+          ]
+        ],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 0.909
+      },
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 1.0,
+        "edge_f1": 1.0,
+        "explicit_recall": 0.375,
+        "implied_correct": 10,
+        "implied_total": 10,
+        "n_edges": 16,
+        "missed_edges": [],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 1.0
+      },
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 1.0,
+        "edge_f1": 1.0,
+        "explicit_recall": 0.375,
+        "implied_correct": 10,
+        "implied_total": 10,
+        "n_edges": 16,
+        "missed_edges": [],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 1.0
+      }
+    ],
+    "blind_summary": {
+      "node_f1": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "edge_precision": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "edge_recall": {
+        "mean": 0.958,
+        "sd": 0.072,
+        "min": 0.875,
+        "max": 1.0
+      },
+      "edge_f1": {
+        "mean": 0.978,
+        "sd": 0.039,
+        "min": 0.933,
+        "max": 1.0
+      },
+      "explicit_recall": {
+        "mean": 0.375,
+        "sd": 0.0,
+        "min": 0.375,
+        "max": 0.375
+      },
+      "rank_spearman_vs_truth": {
+        "mean": 0.97,
+        "sd": 0.053,
+        "min": 0.909,
+        "max": 1.0
+      }
+    },
+    "blind_consistency": {
+      "edges_in_every_run": 14,
+      "edges_in_any_run": 16,
+      "mean_pairwise_jaccard": 0.917
+    },
+    "anon_runs": [
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 0.938,
+        "edge_f1": 0.968,
+        "explicit_recall": 0.125,
+        "implied_correct": 13,
+        "implied_total": 13,
+        "n_edges": 15,
+        "missed_edges": [
+          [
+            "checkoutservice",
+            "currencyservice"
+          ]
+        ],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 0.947
+      },
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 1.0,
+        "edge_f1": 1.0,
+        "explicit_recall": 0.125,
+        "implied_correct": 14,
+        "implied_total": 14,
+        "n_edges": 16,
+        "missed_edges": [],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 1.0
+      },
+      {
+        "node_f1": 1.0,
+        "edge_precision": 1.0,
+        "edge_recall": 0.875,
+        "edge_f1": 0.933,
+        "explicit_recall": 0.125,
+        "implied_correct": 12,
+        "implied_total": 12,
+        "n_edges": 14,
+        "missed_edges": [
+          [
+            "checkoutservice",
+            "currencyservice"
+          ],
+          [
+            "frontend",
+            "shippingservice"
+          ]
+        ],
+        "invented_edges": [],
+        "rank_spearman_vs_truth": 0.947
+      }
+    ],
+    "anon_summary": {
+      "node_f1": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "edge_precision": {
+        "mean": 1.0,
+        "sd": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "edge_recall": {
+        "mean": 0.938,
+        "sd": 0.063,
+        "min": 0.875,
+        "max": 1.0
+      },
+      "edge_f1": {
+        "mean": 0.967,
+        "sd": 0.034,
+        "min": 0.933,
+        "max": 1.0
+      }
+    },
+    "anon_consistency": {
+      "edges_in_every_run": 14,
+      "edges_in_any_run": 16,
+      "mean_pairwise_jaccard": 0.915
+    }
+  },
+  "astronomy_shop": {
+    "v1": {
+      "node_f1": 0.95,
+      "edge_precision": 1.0,
+      "edge_recall": 0.757,
+      "edge_f1": 0.862,
+      "explicit_recall": 0.27,
+      "implied_correct": 18,
+      "implied_total": 18,
+      "n_edges": 28,
+      "missed_edges": [
+        [
+          "email",
+          "flagd"
+        ],
+        [
+          "fraud-detection",
+          "flagd"
+        ],
+        [
+          "frontend",
+          "flagd"
+        ],
+        [
+          "frontend-proxy",
+          "flagd"
+        ],
+        [
+          "frontend-proxy",
+          "flagd-ui"
+        ],
+        [
+          "frontend-proxy",
+          "image-provider"
+        ],
+        [
+          "load-generator",
+          "flagd"
+        ],
+        [
+          "payment",
+          "flagd"
+        ],
+        [
+          "recommendation",
+          "flagd"
+        ]
+      ],
+      "invented_edges": [],
+      "rank_spearman_vs_truth": 1.0,
+      "flagd_dependents": 9
+    },
+    "blind_runs": [
+      {
+        "node_f1": 0.95,
+        "edge_precision": 0.96,
+        "edge_recall": 0.649,
+        "edge_f1": 0.774,
+        "explicit_recall": 0.162,
+        "implied_correct": 18,
+        "implied_total": 18,
+        "n_edges": 25,
+        "missed_edges": [
+          [
+            "checkout",
+            "currency"
+          ],
+          [
+            "checkout",
+            "product-catalog"
+          ],
+          [
+            "email",
+            "flagd"
+          ],
+          [
+            "fraud-detection",
+            "flagd"
+          ],
+          [
+            "frontend",
+            "flagd"
+          ],
+          [
+            "frontend",
+            "shipping"
+          ],
+          [
+            "frontend-proxy",
+            "flagd"
+          ],
+          [
+            "frontend-proxy",
+            "flagd-ui"
+          ],
+          [
+            "frontend-proxy",
+            "image-provider"
+          ],
+          [
+            "load-generator",
+            "flagd"
+          ],
+          [
+            "load-generator",
+            "frontend-proxy"
+          ],
+          [
+            "payment",
+            "flagd"
+          ],
+          [
+            "recommendation",
+            "flagd"
+          ]
+        ],
+        "invented_edges": [
+          [
+            "load-generator",
+            "frontend"
+          ]
+        ],
+        "rank_spearman_vs_truth": 0.97,
+        "flagd_dependents": 9
+      },
+      {
+        "node_f1": 0.95,
+        "edge_precision": 0.962,
+        "edge_recall": 0.676,
+        "edge_f1": 0.794,
+        "explicit_recall": 0.216,
+        "implied_correct": 17,
+        "implied_total": 17,
+        "n_edges": 26,
+        "missed_edges": [
+          [
+            "checkout",
+            "currency"
+          ],
+          [
+            "checkout",
+            "product-catalog"
+          ],
+          [
+            "email",
+            "flagd"
+          ],
+          [
+            "fraud-detection",
+            "flagd"
+          ],
+          [
+            "frontend",
+            "flagd"
+          ],
+          [
+            "frontend-proxy",
+            "flagd"
+          ],
+          [
+            "frontend-proxy",
+            "flagd-ui"
+          ],
+          [
+            "frontend-proxy",
+            "image-provider"
+          ],
+          [
+            "load-generator",
+            "flagd"
+          ],
+          [
+            "load-generator",
+            "frontend-proxy"
+          ],
+          [
+            "payment",
+            "flagd"
+          ],
+          [
+            "recommendation",
+            "flagd"
+          ]
+        ],
+        "invented_edges": [
+          [
+            "load-generator",
+            "frontend"
+          ]
+        ],
+        "rank_spearman_vs_truth": 0.97,
+        "flagd_dependents": 9
+      },
+      {
+        "node_f1": 0.95,
+        "edge_precision": 0.964,
+        "edge_recall": 0.73,
+        "edge_f1": 0.831,
+        "explicit_recall": 0.216,
+        "implied_correct": 19,
+        "implied_total": 19,
+        "n_edges": 28,
+        "missed_edges": [
+          [
+            "email",
+            "flagd"
+          ],
+          [
+            "fraud-detection",
+            "flagd"
+          ],
+          [
+            "frontend",
+            "flagd"
+          ],
+          [
+            "frontend-proxy",
+            "flagd"
+          ],
+          [
+            "frontend-proxy",
+            "flagd-ui"
+          ],
+          [
+            "frontend-proxy",
+            "image-provider"
+          ],
+          [
+            "load-generator",
+            "flagd"
+          ],
+          [
+            "load-generator",
+            "frontend-proxy"
+          ],
+          [
+            "payment",
+            "flagd"
+          ],
+          [
+            "recommendation",
+            "flagd"
+          ]
+        ],
+        "invented_edges": [
+          [
+            "load-generator",
+            "frontend"
+          ]
+        ],
+        "rank_spearman_vs_truth": 0.997,
+        "flagd_dependents": 9
+      }
+    ],
+    "blind_summary": {
+      "node_f1": {
+        "mean": 0.95,
+        "sd": 0.0,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "edge_precision": {
+        "mean": 0.962,
+        "sd": 0.002,
+        "min": 0.96,
+        "max": 0.964
+      },
+      "edge_recall": {
+        "mean": 0.685,
+        "sd": 0.041,
+        "min": 0.649,
+        "max": 0.73
+      },
+      "edge_f1": {
+        "mean": 0.8,
+        "sd": 0.029,
+        "min": 0.774,
+        "max": 0.831
+      },
+      "explicit_recall": {
+        "mean": 0.198,
+        "sd": 0.031,
+        "min": 0.162,
+        "max": 0.216
+      },
+      "rank_spearman_vs_truth": {
+        "mean": 0.979,
+        "sd": 0.016,
+        "min": 0.97,
+        "max": 0.997
+      },
+      "flagd_dependents": {
+        "mean": 9,
+        "sd": 0.0,
+        "min": 9,
+        "max": 9
+      }
+    },
+    "blind_consistency": {
+      "edges_in_every_run": 25,
+      "edges_in_any_run": 28,
+      "mean_pairwise_jaccard": 0.928
+    }
+  }
+}

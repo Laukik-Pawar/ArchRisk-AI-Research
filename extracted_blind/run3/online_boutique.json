@@ -1,0 +1,35 @@
+{
+  "system": "Online Boutique",
+  "components": [
+    {"id": "frontend", "type": "frontend", "stateful": false, "description": "Go service exposing an HTTP server that serves the e-commerce website and auto-generates session IDs for users."},
+    {"id": "cartservice", "type": "service", "stateful": false, "description": "C# service that stores and retrieves the items in the user's shopping cart using Redis."},
+    {"id": "productcatalogservice", "type": "service", "stateful": false, "description": "Go service that provides the product list from a JSON file and supports searching and fetching individual products."},
+    {"id": "currencyservice", "type": "service", "stateful": false, "description": "Node.js service that converts money amounts between currencies using European Central Bank rates and is the highest QPS service."},
+    {"id": "paymentservice", "type": "service", "stateful": false, "description": "Node.js service that charges the given credit card info (mock) and returns a transaction ID."},
+    {"id": "shippingservice", "type": "service", "stateful": false, "description": "Go service that gives shipping cost estimates based on the cart and ships items to an address (mock)."},
+    {"id": "emailservice", "type": "service", "stateful": false, "description": "Python service that sends users an order confirmation email (mock)."},
+    {"id": "checkoutservice", "type": "service", "stateful": false, "description": "Go service that retrieves the user cart, prepares the order and orchestrates payment, shipping and email notification."},
+    {"id": "recommendationservice", "type": "service", "stateful": false, "description": "Python service that recommends other products based on what is in the cart."},
+    {"id": "adservice", "type": "service", "stateful": false, "description": "Java service that provides text ads based on given context words."},
+    {"id": "loadgenerator", "type": "load_generator", "stateful": false, "description": "Python/Locust tool that continuously sends requests imitating realistic user shopping flows to the frontend."},
+    {"id": "redis", "type": "cache", "stateful": true, "description": "Redis store holding the contents of users' shopping carts for cartservice."}
+  ],
+  "dependencies": [
+    {"source": "loadgenerator", "target": "frontend", "evidence": "explicit", "reason": "Continuously sends requests imitating realistic user shopping flows to the frontend."},
+    {"source": "cartservice", "target": "redis", "evidence": "explicit", "reason": "Stores the items in the user's shopping cart in Redis and retrieves it."},
+    {"source": "checkoutservice", "target": "cartservice", "evidence": "explicit", "reason": "Retrieves user cart"},
+    {"source": "checkoutservice", "target": "paymentservice", "evidence": "explicit", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "checkoutservice", "target": "shippingservice", "evidence": "explicit", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "checkoutservice", "target": "emailservice", "evidence": "explicit", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "checkoutservice", "target": "productcatalogservice", "evidence": "implied", "reason": "Retrieves user cart, prepares order"},
+    {"source": "checkoutservice", "target": "currencyservice", "evidence": "implied", "reason": "prepares order and orchestrates the payment"},
+    {"source": "frontend", "target": "productcatalogservice", "evidence": "implied", "reason": "users can browse items"},
+    {"source": "frontend", "target": "cartservice", "evidence": "implied", "reason": "users can browse items, add them to the cart"},
+    {"source": "frontend", "target": "checkoutservice", "evidence": "implied", "reason": "add them to the cart, and purchase them"},
+    {"source": "frontend", "target": "currencyservice", "evidence": "implied", "reason": "Converts one money amount to another currency. It's the highest QPS service."},
+    {"source": "frontend", "target": "recommendationservice", "evidence": "implied", "reason": "Recommends other products based on what's given in the cart."},
+    {"source": "frontend", "target": "adservice", "evidence": "implied", "reason": "Provides text ads based on given context words."},
+    {"source": "frontend", "target": "shippingservice", "evidence": "implied", "reason": "Gives shipping cost estimates based on the shopping cart."},
+    {"source": "recommendationservice", "target": "productcatalogservice", "evidence": "implied", "reason": "Recommends other products based on what's given in the cart."}
+  ]
+}

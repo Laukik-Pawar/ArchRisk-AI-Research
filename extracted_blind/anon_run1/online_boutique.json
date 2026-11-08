@@ -1,0 +1,34 @@
+{
+  "system": "System X",
+  "components": [
+    {"id": "svc-08", "type": "frontend", "stateful": false, "description": "Exposes an HTTP server to serve the e-commerce website and automatically generates session IDs for all users."},
+    {"id": "svc-01", "type": "service", "stateful": false, "description": "Stores the items in the user's shopping cart in Redis and retrieves them."},
+    {"id": "redis", "type": "cache", "stateful": true, "description": "Redis store holding the contents of users' shopping carts."},
+    {"id": "svc-10", "type": "service", "stateful": false, "description": "Provides the list of products from a JSON file and supports searching and fetching individual products."},
+    {"id": "svc-03", "type": "service", "stateful": false, "description": "Converts money amounts between currencies using values fetched from the European Central Bank and is the highest QPS service."},
+    {"id": "svc-06", "type": "service", "stateful": false, "description": "Charges the given credit card info (mock) with the given amount and returns a transaction ID."},
+    {"id": "svc-11", "type": "service", "stateful": false, "description": "Gives shipping cost estimates based on the shopping cart and ships items to the given address (mock)."},
+    {"id": "svc-09", "type": "service", "stateful": false, "description": "Sends users an order confirmation email (mock)."},
+    {"id": "svc-07", "type": "service", "stateful": false, "description": "Retrieves the user cart, prepares the order and orchestrates payment, shipping and email notification."},
+    {"id": "svc-05", "type": "service", "stateful": false, "description": "Recommends other products based on what is given in the cart."},
+    {"id": "svc-04", "type": "service", "stateful": false, "description": "Provides text ads based on given context words."},
+    {"id": "svc-02", "type": "load_generator", "stateful": false, "description": "Locust-based generator that continuously sends requests imitating realistic user shopping flows to svc-08."}
+  ],
+  "dependencies": [
+    {"source": "svc-02", "target": "svc-08", "evidence": "explicit", "reason": "Continuously sends requests imitating realistic user shopping flows to the svc-08."},
+    {"source": "svc-01", "target": "redis", "evidence": "explicit", "reason": "Stores the items in the user's shopping cart in Redis and retrieves it."},
+    {"source": "svc-07", "target": "svc-01", "evidence": "implied", "reason": "Retrieves user cart, prepares order"},
+    {"source": "svc-07", "target": "svc-06", "evidence": "implied", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "svc-07", "target": "svc-11", "evidence": "implied", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "svc-07", "target": "svc-09", "evidence": "implied", "reason": "orchestrates the payment, shipping and the email notification"},
+    {"source": "svc-07", "target": "svc-10", "evidence": "implied", "reason": "Retrieves user cart, prepares order"},
+    {"source": "svc-05", "target": "svc-10", "evidence": "implied", "reason": "Recommends other products based on what's given in the cart."},
+    {"source": "svc-08", "target": "svc-10", "evidence": "implied", "reason": "users can browse items, add them to the cart, and purchase them"},
+    {"source": "svc-08", "target": "svc-01", "evidence": "implied", "reason": "users can browse items, add them to the cart"},
+    {"source": "svc-08", "target": "svc-07", "evidence": "implied", "reason": "add them to the cart, and purchase them"},
+    {"source": "svc-08", "target": "svc-03", "evidence": "implied", "reason": "Converts one money amount to another currency. It's the highest QPS service."},
+    {"source": "svc-08", "target": "svc-05", "evidence": "implied", "reason": "Recommends other products based on what's given in the cart."},
+    {"source": "svc-08", "target": "svc-04", "evidence": "implied", "reason": "Provides text ads based on given context words."},
+    {"source": "svc-08", "target": "svc-11", "evidence": "implied", "reason": "Gives shipping cost estimates based on the shopping cart."}
+  ]
+}

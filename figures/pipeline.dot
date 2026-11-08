@@ -1,0 +1,61 @@
+digraph pipeline {
+  graph [rankdir=LR, newrank=true, bgcolor="#fcfcfb", fontname="DejaVu Sans", fontsize=13, nodesep=0.35, ranksep=0.45, pad=0.3,
+         label="Done for midterm = solid blue    Planned = grey dashed    Validation check = diamond", labelloc=b, fontcolor="#52514e"];
+  node  [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#2a78d6", fillcolor="#e6f0fc", fontcolor="#0b0b0b", penwidth=1.4, margin="0.18,0.08"];
+  edge  [color="#898781", arrowsize=0.7, penwidth=1.2];
+
+  subgraph cluster_in { label="Input"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    docs [label="Design docs\n(README text only)"];
+    cfg  [label="Deployment configs\n(K8s / docker compose)"];
+  }
+  subgraph cluster_1 { label="1  LLM extraction"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    llm  [label="LLM extractor\nprompt v1\nJSON components + edges"];
+    blind [label="Blind repeat runs\n+ names-hidden runs"];
+    schema [label="Schema\nvalid?", shape=diamond, fillcolor="#fff4e0", color="#eb6834", margin="0.02,0.02"];
+  }
+  subgraph cluster_2 { label="2  Graph construction"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    gt   [label="Ground-truth parser\n(address variables)"];
+    gex  [label="Extracted graph\n(NetworkX DiGraph)"];
+    gtr  [label="True graph"];
+    prf  [label="Edge precision /\nrecall / F1", shape=diamond, fillcolor="#fff4e0", color="#eb6834", margin="0.02,0.02"];
+    var  [label="Architecture variants\n(replicas, caches, queues)", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+  }
+  subgraph cluster_3 { label="3  Labels and features"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    lab  [label="Label: failure impact\n(remove node, share affected)"];
+    comp [label="Heuristic: composite\n0.4 in + 0.2 out + 0.4 betw."];
+    soft [label="Soft-dependency check\n(code + OpenFeature spec)"];
+    feat [label="Features (no graph metrics):\ntype, stateful, #interfaces,\ndescription embedding", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+  }
+  subgraph cluster_4 { label="4  Models (5 seeds, split by system)"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    rf   [label="Random forest\n(no graph, node features only)", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+    gcn  [label="GCN baseline\n2 x GCNConv, 64 hidden\n+ linear risk head", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+    gps  [label="GraphGPS (Transformer option)\n2 x GPSConv: GIN + 4-head attention\nrandom-walk positional encoding", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+    km   [label="K-means risk tiers\non embeddings", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+  }
+  subgraph cluster_5 { label="5  Evaluation"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    ev   [label="MAE, Spearman,\ntop-k overlap", shape=diamond, fillcolor="#fff4e0", color="#eb6834", style="filled,dashed", margin="0.02,0.02"];
+    fi   [label="Fault injection on\nAstronomy Shop\n(feature flags)", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+    sme  [label="SME review of\ntop-risk components", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+  }
+  subgraph cluster_6 { label="6  Feedback"; color="#d4d3cd"; fontcolor="#52514e"; style=rounded;
+    fb   [label="LLM-drafted advice,\nchecked against results", style="rounded,dashed", fillcolor="#f3f2ee", color="#898781"];
+  }
+
+  docs -> llm -> schema -> gex;
+  schema -> llm [label=" retry", fontsize=9, fontcolor="#898781", style=dashed];
+  cfg -> gt -> gtr;
+  {rank=same; docs; cfg;}
+  {rank=same; llm; gt; blind;}
+  {rank=same; gex; gtr;}
+  {rank=same; lab; comp; soft; feat;}
+  {rank=same; rf; gcn; gps;}
+  gex -> prf; gtr -> prf; docs -> blind; blind -> prf;
+  gtr -> soft; soft -> lab; gtr -> comp; gex -> lab [constraint=false];
+  gex -> var [style=dashed]; var -> lab [style=dashed];
+  lab -> rf [style=dashed]; lab -> gcn [style=dashed]; lab -> gps [style=dashed];
+  feat -> rf [style=dashed]; feat -> gcn [style=dashed]; feat -> gps [style=dashed];
+  gps -> km [style=dashed];
+  rf -> ev [style=dashed]; gcn -> ev [style=dashed]; gps -> ev [style=dashed]; comp -> ev [style=dashed];
+  fi -> ev [style=dashed];
+  ev -> sme [style=dashed]; ev -> fb [style=dashed]; km -> fb [style=dashed];
+}

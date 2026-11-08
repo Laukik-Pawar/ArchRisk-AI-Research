@@ -1,0 +1,88 @@
+{
+  "system": "Online Boutique",
+  "source": "kubernetes-manifests/*.yaml (env *_ADDR)",
+  "nodes": [
+    "adservice",
+    "cartservice",
+    "checkoutservice",
+    "currencyservice",
+    "emailservice",
+    "frontend",
+    "loadgenerator",
+    "paymentservice",
+    "productcatalogservice",
+    "recommendationservice",
+    "redis-cart",
+    "shippingservice"
+  ],
+  "edges": [
+    [
+      "cartservice",
+      "redis-cart"
+    ],
+    [
+      "checkoutservice",
+      "cartservice"
+    ],
+    [
+      "checkoutservice",
+      "currencyservice"
+    ],
+    [
+      "checkoutservice",
+      "emailservice"
+    ],
+    [
+      "checkoutservice",
+      "paymentservice"
+    ],
+    [
+      "checkoutservice",
+      "productcatalogservice"
+    ],
+    [
+      "checkoutservice",
+      "shippingservice"
+    ],
+    [
+      "frontend",
+      "adservice"
+    ],
+    [
+      "frontend",
+      "cartservice"
+    ],
+    [
+      "frontend",
+      "checkoutservice"
+    ],
+    [
+      "frontend",
+      "currencyservice"
+    ],
+    [
+      "frontend",
+      "productcatalogservice"
+    ],
+    [
+      "frontend",
+      "recommendationservice"
+    ],
+    [
+      "frontend",
+      "shippingservice"
+    ],
+    [
+      "loadgenerator",
+      "frontend"
+    ],
+    [
+      "recommendationservice",
+      "productcatalogservice"
+    ]
+  ],
+  "startup_only_edges": [],
+  "notes": [
+    "frontend: SHOPPING_ASSISTANT_SERVICE_ADDR=shoppingassistantservice:80 points to a service not deployed in the base manifests"
+  ]
+}

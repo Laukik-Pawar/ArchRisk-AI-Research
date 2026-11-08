@@ -1,0 +1,13 @@
+# Tested with Python 3.13 and Graphviz 2.43 (the `dot` program must be on PATH)
+networkx==3.7
+matplotlib==3.11.2
+scipy==1.18.1
+numpy==2.5.3
+pandas==3.0.5
+PyYAML==6.0.3
+pytest==9.1.1
+# Needed to re-run the LLM extraction through an API, and for the two
+# real-SDK tests (both SDKs install their HTTP library, httpx2, themselves)
+google-genai==3.0.0
+anthropic==2.6.0
+python-dotenv==1.2.3

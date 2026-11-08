@@ -1,0 +1,13 @@
+{
+  "svc-01": "cartservice",
+  "svc-02": "loadgenerator",
+  "svc-03": "currencyservice",
+  "svc-04": "adservice",
+  "svc-05": "recommendationservice",
+  "svc-06": "paymentservice",
+  "svc-07": "checkoutservice",
+  "svc-08": "frontend",
+  "svc-09": "emailservice",
+  "svc-10": "productcatalogservice",
+  "svc-11": "shippingservice"
+}

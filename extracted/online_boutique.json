@@ -1,0 +1,38 @@
+{
+  "system": "Online Boutique",
+  "llm": "Claude Opus 5.5 (claude-opus-5-5)",
+  "prompt": "prompts/extraction_prompt.md v1",
+  "input": "data/docs/online_boutique.md",
+  "components": [
+    {"id": "frontend", "type": "frontend", "stateful": false, "description": "HTTP server that serves the website and generates session IDs for users."},
+    {"id": "cartservice", "type": "service", "stateful": false, "description": "Stores and retrieves the items in a user's shopping cart."},
+    {"id": "redis", "type": "cache", "stateful": true, "description": "Redis store holding shopping cart contents."},
+    {"id": "productcatalogservice", "type": "service", "stateful": false, "description": "Provides the product list from a JSON file, product search and product lookup."},
+    {"id": "currencyservice", "type": "service", "stateful": false, "description": "Converts money amounts between currencies; highest QPS service."},
+    {"id": "paymentservice", "type": "service", "stateful": false, "description": "Charges a (mock) credit card and returns a transaction ID."},
+    {"id": "shippingservice", "type": "service", "stateful": false, "description": "Estimates shipping cost from the cart and ships items (mock)."},
+    {"id": "emailservice", "type": "service", "stateful": false, "description": "Sends a (mock) order confirmation email."},
+    {"id": "checkoutservice", "type": "service", "stateful": false, "description": "Retrieves the cart, prepares the order and orchestrates payment, shipping and email."},
+    {"id": "recommendationservice", "type": "service", "stateful": false, "description": "Recommends other products based on the cart contents."},
+    {"id": "adservice", "type": "service", "stateful": false, "description": "Provides text ads based on context words."},
+    {"id": "loadgenerator", "type": "load_generator", "stateful": false, "description": "Sends continuous simulated shopping traffic to the frontend."}
+  ],
+  "dependencies": [
+    {"source": "cartservice", "target": "redis", "evidence": "explicit", "reason": "Stores the items in the user's shopping cart in Redis"},
+    {"source": "checkoutservice", "target": "cartservice", "evidence": "explicit", "reason": "Retrieves user cart"},
+    {"source": "checkoutservice", "target": "paymentservice", "evidence": "explicit", "reason": "orchestrates the payment"},
+    {"source": "checkoutservice", "target": "shippingservice", "evidence": "explicit", "reason": "orchestrates the payment, shipping"},
+    {"source": "checkoutservice", "target": "emailservice", "evidence": "explicit", "reason": "orchestrates ... the email notification"},
+    {"source": "loadgenerator", "target": "frontend", "evidence": "explicit", "reason": "sends requests imitating realistic user shopping flows to the frontend"},
+    {"source": "frontend", "target": "productcatalogservice", "evidence": "implied", "reason": "users can browse items"},
+    {"source": "frontend", "target": "cartservice", "evidence": "implied", "reason": "add them to the cart"},
+    {"source": "frontend", "target": "checkoutservice", "evidence": "implied", "reason": "and purchase them"},
+    {"source": "frontend", "target": "recommendationservice", "evidence": "implied", "reason": "website shows recommended products"},
+    {"source": "frontend", "target": "adservice", "evidence": "implied", "reason": "Provides text ads based on given context words"},
+    {"source": "frontend", "target": "currencyservice", "evidence": "implied", "reason": "It's the highest QPS service"},
+    {"source": "frontend", "target": "shippingservice", "evidence": "implied", "reason": "Gives shipping cost estimates based on the shopping cart"},
+    {"source": "recommendationservice", "target": "productcatalogservice", "evidence": "implied", "reason": "Recommends other products"},
+    {"source": "checkoutservice", "target": "productcatalogservice", "evidence": "implied", "reason": "prepares order"},
+    {"source": "checkoutservice", "target": "currencyservice", "evidence": "implied", "reason": "prepares order (price conversion)"}
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "system": "astronomy_shop",
+  "meaning": "A soft dependency is one where the consumer keeps working (possibly degraded) when the provider is down. Only edges verified in source code or in a specification are listed. Every other edge is treated as hard.",
+  "repo_commit": "e22afe5",
+  "groups": [
+    {
+      "reason": "Feature-flag reads use OpenFeature SDKs. OpenFeature spec requirement 1.4.10: flag evaluation must return the default value on abnormal execution and must not throw. Checkout also only logs flagd provider errors (src/checkout/main.go lines 199-207).",
+      "source": "https://openfeature.dev/specification/sections/flag-evaluation ; OpenFeature imports found in each service's source",
+      "edges": [
+        [
+          "ad",
+          "flagd"
+        ],
+        [
+          "cart",
+          "flagd"
+        ],
+        [
+          "checkout",
+          "flagd"
+        ],
+        [
+          "email",
+          "flagd"
+        ],
+        [
+          "fraud-detection",
+          "flagd"
+        ],
+        [
+          "frontend",
+          "flagd"
+        ],
+        [
+          "load-generator",
+          "flagd"
+        ],
+        [
+          "payment",
+          "flagd"
+        ],
+        [
+          "product-catalog",
+          "flagd"
+        ],
+        [
+          "recommendation",
+          "flagd"
+        ],
+        [
+          "shipping",
+          "flagd"
+        ]
+      ]
+    },
+    {
+      "reason": "A failed order-confirmation email is logged as a warning and the order still returns (src/checkout/main.go lines 411-415).",
+      "source": "src/checkout/main.go",
+      "edges": [
+        [
+          "checkout",
+          "email"
+        ]
+      ]
+    },
+    {
+      "reason": "Checkout publishes each order to Kafka after the order is built and waits for an answer (src/checkout/main.go lines 417-424 and 664-713, not in a goroutine). A failure or timeout is only logged and the order is still returned, though it can be delayed until the request deadline.",
+      "source": "src/checkout/main.go",
+      "edges": [
+        [
+          "checkout",
+          "kafka"
+        ]
+      ]
+    }
+  ],
+  "not_checked": "frontend-proxy routes (to frontend, flagd, flagd-ui, image-provider, load-generator) and the frontend's calls to backend services are still treated as hard."
+}
